@@ -46,9 +46,3 @@ int main(){
     print(head);
     return 0;
 }
-cd google-clone
-npm start
-open src folder app.js file  content from class name upto <div>
-remove h1 Lets build google clone  
-go to vs code go to project name-google-clone click on src app.js from header to close remove 
-add <h1> Lets build google clone </h1>
