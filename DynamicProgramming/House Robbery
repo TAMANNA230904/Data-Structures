@@ -1,0 +1,31 @@
+// A colony has houses positioned in a circular manner. A robber cannot rob adjacent houses.Each house has some money.Return maximum money robber can rob from the houses.
+
+
+#include <bits/stdc++.h> 
+long long int solveTab(vector<int>& nums){
+    int n=nums.size();
+    vector<long long int> dp(n,0);
+    dp[0]=nums[0];
+    dp[1]=max(nums[0],nums[1]);
+for(int i=2;i<n;i++){
+   long long int incl=dp[i-2]+nums[i];
+    long long int excl=dp[i-1];
+    dp[i]=max(incl,excl);
+}
+    return dp[n-1];
+
+}
+long long int houseRobber(vector<int>& valueInHouse)
+{int n=valueInHouse.size();
+
+if(n==1)
+return valueInHouse[0];
+     vector<int> first(n-1),second(n-1);
+        for(int i=0;i<n;i++){
+            if(i!=n-1)
+            first.push_back(valueInHouse[i]);
+            if(i!=0)
+            second.push_back(valueInHouse[i]);
+        }
+return max(solveTab(first),solveTab(second));
+}
