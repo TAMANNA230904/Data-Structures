@@ -1,0 +1,47 @@
+//Ninja has to paint n fence segments using k colours such that no colour can repeat more than 2 times.
+
+#include <bits/stdc++.h> 
+#define MOD 1000000007
+int add(int a,int b){
+    return (a%MOD+b%MOD)%MOD;
+}
+int mul(int a,int b){
+    return ((a%MOD)*1LL*(b%MOD))%MOD;
+}
+int solveMem(int n,int k,vector<int> &dp){
+    //base case
+    if(n==1)
+    return k;
+    if(n==2)
+    return add(k,mul(k,k-1));
+
+    if(dp[n]!=-1)
+    return dp[n];
+
+int ans=add(mul(solveMem(n-1,k,dp),k-1),mul(solveMem(n-2,k,dp),k-1));
+dp[n]=ans;
+
+return dp[n];
+}
+
+int solve(int n,int k){
+    //base case
+    if(n==0)
+    return 0;
+    if(n==1)
+    return k;
+    if(n==2)
+    return add(k,mul(k,k-1));
+
+int ans=add(mul(solve(n-1,k),k-1),mul(solve(n-2,k),k-1));
+return ans;
+
+
+}
+int numberOfWays(int n, int k) {
+    // Write your code here.
+    // int ans=solve(n,k);
+    // return ans;
+    vector<int> dp(n+1,-1);
+    return solveMem(n,k,dp);
+}
