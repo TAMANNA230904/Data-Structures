@@ -1,0 +1,28 @@
+//Given a matrix(2D array) M of size N*N consisting of 0s and 1s only. The task is to find the column with maximum number of 0s.
+//If more than one column exists, print the one which comes first. If the maximum number of 0s is 0 then return -1.
+
+class Solution{
+    public:
+    /*Function to count zeros in each column
+    * N : Number of rows and columns in array
+    M is the matrix that is globally declared
+    */
+    int columnWithMaxZeros(vector<vector<int>>arr,int N){
+       pair<int,int> maxi(0,-1); 
+      for(int i=0;i<N;i++){
+           pair<int,int> temp(0,-1);
+          for(int j=0;j<N;j++){
+              if(arr[j][i]==0)
+              temp.first++;
+              temp.second=i;
+          }
+         if(temp.first>maxi.first){
+             maxi.first=temp.first;
+             maxi.second=temp.second;
+         }
+      }
+     
+   return maxi.second; 
+    }
+};
+
