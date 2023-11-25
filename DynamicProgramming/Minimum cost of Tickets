@@ -1,0 +1,33 @@
+Find minimum cost of tickets for ninja when days arrays is given representing on which day ninja travels and cost array to buy tickets for 1 day,7day and 30 day is given.
+Tickets can be utilized for consecutive days.
+
+#include<bits/stdc++.h>
+int solveMem(int n, vector<int> &days, vector<int> &cost,int i){
+    //base Case
+if(i>=n)
+return 0;
+
+//1 day ticket
+int op1=solveMem(n,days,cost,i+1)+cost[0];
+//7 day ticket
+int index;
+for(index=i;index<n && days[index]<days[i]+7;index++);
+
+int op2=cost[1]+solveMem(n,days,cost,index);
+//30 day ticket
+for(index=i;index<n && days[index]<days[i]+30;index++);
+
+int op3=cost[2]+solveMem(n,days,cost,index);
+
+int ans=min(op1,min(op2,op3));
+
+return ans;
+}
+
+
+int minimumCoins(int n, vector<int> days, vector<int> cost)
+{
+     return solve(n,days,cost,0);
+    // vector<int> dp(n+1,-1);
+    // return solveMem(n.days,cost,0,dp);
+}
