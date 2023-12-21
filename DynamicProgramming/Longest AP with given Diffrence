@@ -1,0 +1,26 @@
+Given an integer array arr and an integer difference, return the length of the longest subsequence in arr which is an arithmetic sequence such that the difference between adjacent elements in the subsequence equals difference.
+
+A subsequence is a sequence that can be derived from arr by deleting some or no elements without changing the order of the remaining elements.
+
+class Solution {
+public:
+
+
+    int longestSubsequence(vector<int>& arr, int difference) {
+        int n=arr.size();
+        int ans=0;
+        unordered_map<int,int> dp;
+        for(int i=0;i<n;i++){
+               int temp=arr[i]-difference;
+               int tempans=0;
+               if(dp.count(temp))
+               tempans=dp[temp];
+
+               dp[arr[i]]=1+tempans;
+
+               ans=max(ans,dp[arr[i]]);
+        }
+        return ans;
+    }
+
+};
