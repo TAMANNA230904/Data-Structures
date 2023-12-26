@@ -1,0 +1,61 @@
+Given two strings word1 and word2, return the minimum number of operations required to convert word1 to word2.
+
+You have the following three operations permitted on a word:
+
+Insert a character
+Delete a character
+Replace a character
+
+
+class Solution {
+public:
+int solve(string &word1, string &word2,int i,int j){
+    if(i==word1.length())
+    return word2.length()-j;
+
+    if(j==word2.length() )
+    return word1.length()-i;
+
+    int ans=INT_MAX;
+    if(word1[i]==word2[j])
+    ans= solve(word1,word2,i+1,j+1);
+    else{
+        //insert
+        int insert=solve(word1,word2,i,j+1)+1;
+        //delete
+        int del=solve(word1,word2,i+1,j)+1;
+        //replace
+        int replace=solve(word1,word2,i+1,j+1)+1;
+        ans=min(insert,min(del,replace));
+    }
+    return ans;
+}
+
+int solvemem(string &word1, string &word2,int i,int j,vector<vector<int>> &dp){
+    if(i==word1.length())
+    return word2.length()-j;
+
+    if(j==word2.length() )
+    return word1.length()-i;
+    if(dp[i][j]!=-1)
+    return dp[i][j];
+    int ans=INT_MAX;
+    if(word1[i]==word2[j])
+    ans= solvemem(word1,word2,i+1,j+1,dp);
+    else{
+        //insert
+        int insert=solvemem(word1,word2,i,j+1,dp)+1;
+        //delete
+        int del=solvemem(word1,word2,i+1,j,dp)+1;
+        //replace
+        int replace=solvemem(word1,word2,i+1,j+1,dp)+1;
+        ans=min(insert,min(del,replace));
+    }
+    return dp[i][j]=ans;
+}
+    int minDistance(string word1, string word2) {
+        vector<vector<int>> dp(word1.length(),vector<int>(word2.length(),-1));
+        //return solve(word1,word2,0,0,dp);
+        return solvemem(word1,word2,0,0,dp);
+    }
+};
