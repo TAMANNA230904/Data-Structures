@@ -1,0 +1,57 @@
+There is a road passing through a city with N plots on both sides of the road. Plots are arranged in a straight line on either side of the road.
+Determine the total number of ways to construct buildings in these plots, ensuring that no two buildings are adjacent to each other. Specifically,
+buildings on opposite sides of the road cannot be adjacent.
+
+Using * to represent a plot and || for the road, the arrangement for N = 3 can be visualized as follows: * * * || * * *.
+
+Note: As the answer can be very large, print it mod 109+7.
+
+
+//{ Driver Code Starts
+#include<bits/stdc++.h>
+using namespace std;
+
+// } Driver Code Ends
+class Solution{
+#define MOD 1000000007
+	public:
+	 long long solve(int n,int index,vector<long long> &dp){
+	    if(n==0)
+	    return 1;
+	    
+	    if(index>=n)
+	    return 1;
+	    
+	    if(dp[index]!=-1)
+	    return dp[index];
+	    
+	    long long incl=solve(n,index+2,dp)%MOD;
+	    long long excl=solve(n,index+1,dp)%MOD;
+	    
+	     dp[index]= (incl+excl)%MOD;
+	     
+	     return dp[index];
+	    
+	}
+	int TotalWays(int N)
+	{
+	    vector< long long> dp(N+1,-1);
+	    long long ans=solve(N,0,dp)%MOD;
+	    return (ans*ans)%MOD;
+	}
+};
+
+//{ Driver Code Starts.
+int main(){
+	int tc;
+	cin >> tc;
+	while(tc--){
+		int N;
+		cin >> N;
+		Solution ob;
+		int ans = ob.TotalWays(N);
+		cout << ans <<"\n";
+	}
+	return 0;
+}
+// } Driver Code Ends
