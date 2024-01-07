@@ -1,0 +1,21 @@
+Given an array ‘Arr’ that has ‘N’ elements. You have to find the subarray of ‘Arr’ that has the largest product.You must return the product of 
+the subarray with the maximum product.
+
+
+
+#include<vector>
+#include<bits/stdc++.h>
+int subarrayWithMaxProduct(vector<int> &arr){
+	int ans=INT_MIN;
+	int n=arr.size();
+	for(int i=0;i<n;i++){
+		int prod=1;
+		for(int j=i;j<n;j++){
+			prod*=arr[j];
+			ans=max(ans,prod);
+		}
+		
+	}
+	return ans;
+}
+
