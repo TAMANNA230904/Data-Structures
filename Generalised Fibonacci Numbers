@@ -1,0 +1,69 @@
+Consider the generalized Fibonacci number g, which is dependent on a, b and c as follows :-
+g(1) = 1, g(2) = 1. For any other number n, g(n) = a*g(n-1) + b*g(n-2) + c.
+
+For a given value of m, determine g(n)%m.
+
+//{ Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+// } Driver Code Ends
+class Solution {
+  public:
+  void power(long long F[][3],long long n,long long M[][3],long long m){
+      if(n==0 || n==1)
+      return;
+      
+      power(F,n/2,M,m);
+      multiply(F,F,m);
+      if(n%2!=0)
+      multiply(F,M,m);
+      
+  }
+  void multiply(long long F[][3],long long M[][3],long long m){
+      long long result[3][3]={{0}};
+      for(int i=0;i<3;i++){
+          for(int j=0;j<3;j++){
+              for(int k=0;k<3;k++){
+                  result[i][j]+=(F[i][k]*M[k][j])%m;
+                  result[i][j]%=m;
+              }
+          }
+      }
+      
+      for(int i=0;i<3;i++){
+          for(int j=0;j<3;j++){
+              F[i][j]=result[i][j];
+          }
+      }
+  }
+    long long genFibNum(long long a, long long b, long long c, long long n, long long m) {
+        // code here
+       long long mat[3][3]={{a,b,1},{1,0,0},{0,0,1}};
+       long long M[3][3]={{a,b,1},{1,0,0},{0,0,1}};
+       
+       if(n<=2)
+       return 1%m;
+       
+       else{
+          power(mat,n-2,M,m);
+          return (mat[0][0]+mat[0][1]+mat[0][2]*c)%m;
+       }
+    }
+};
+
+//{ Driver Code Starts.
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        long long a,b,c,n,m;
+        
+        cin>>a>>b>>c>>n>>m;
+
+        Solution ob;
+        cout << ob.genFibNum(a,b,c,n,m) << endl;
+    }
+    return 0;
+}
+// } Driver Code Ends
