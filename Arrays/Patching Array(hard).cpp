@@ -9,13 +9,16 @@ public:
         int i=0;
         long long reach=0;
        while(reach<n){
+           //this condition is just to check if array is finished and there is still some elements left to cover
         if(i>=nums.size()){
             reach+=reach+1;
             count++;
-        }else if(i<nums.size() && nums[i]<=(reach+1)){
+        }//this condition checks if reach is less than the current element so we add it to current reach
+        else if(i<nums.size() && nums[i]<=(reach+1)){
             reach+=nums[i];
             i++;
         }
+            //else add the lowest element missed to the reach and to the array and increment count
         else{
             reach+=reach+1;
             count++;
